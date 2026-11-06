@@ -3,13 +3,13 @@ import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, CallbackQueryHandler, MessageHandler, filters
 
-# আপনার নতুন তৈরি করা গ্রুপের ইউজারনেম এখানে বসানো হলো
+# আপনার গ্রুপের সঠিক ইউজারনেম
 CHANNEL_USERNAME = "@riyachatgroup70"
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 # ১. /start এবং ফোর্স সাবস্ক্রাইব লজিক
-async def start(update: Update, context: ContextTypes.DefaultTypes):
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("👥 Group Join Karo", url="https://t.me/riyachatgroup70")],
         [InlineKeyboardButton("✅ Maine Join Kar Liya", callback_data="check_join")]
@@ -21,7 +21,7 @@ async def start(update: Update, context: ContextTypes.DefaultTypes):
         reply_markup=reply_markup
     )
 
-async def button_callback(update: Update, context: ContextTypes.DefaultTypes):
+async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
     
@@ -42,7 +42,7 @@ async def button_callback(update: Update, context: ContextTypes.DefaultTypes):
             await query.answer("আগে গ্রুপ চেক করুন অথবা বটকে গ্রুপের অ্যাডমিন করুন!", show_alert=True)
 
 # ২. ভয়েস ও টেক্সট মেসেজ হ্যান্ডলার (I love you লিখলে ভয়েস পাঠানো)
-async def handle_message(update: Update, context: ContextTypes.DefaultTypes):
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message or not update.message.text:
         return
         
@@ -56,7 +56,7 @@ async def handle_message(update: Update, context: ContextTypes.DefaultTypes):
             await update.message.reply_text("hlloww 🙈")
 
 # ৩. মডারেশন কমান্ডস (/kick, /ban, /purge)
-async def kick_user(update: Update, context: ContextTypes.DefaultTypes):
+async def kick_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.reply_to_message:
         chat_id = update.effective_chat.id
         user_to_kick = update.message.reply_to_message.from_user.id
@@ -67,7 +67,7 @@ async def kick_user(update: Update, context: ContextTypes.DefaultTypes):
         except Exception as e:
             await update.message.reply_text("বটকে গ্রুপের অ্যাডমিন করুন এবং পর্যাপ্ত পারমিশন দিন!")
 
-async def ban_user(update: Update, context: ContextTypes.DefaultTypes):
+async def ban_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.reply_to_message:
         chat_id = update.effective_chat.id
         user_to_ban = update.message.reply_to_message.from_user.id
@@ -77,7 +77,7 @@ async def ban_user(update: Update, context: ContextTypes.DefaultTypes):
         except Exception as e:
             await update.message.reply_text("বটকে অ্যাডমিন করুন!")
 
-async def purge_messages(update: Update, context: ContextTypes.DefaultTypes):
+async def purge_messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.reply_to_message:
         chat_id = update.effective_chat.id
         message_id_start = update.message.reply_to_message.message_id
