@@ -3,13 +3,13 @@ import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, CallbackQueryHandler, MessageHandler, filters
 
-# আপনার চ্যানেলের ইউজারনেম এবং গ্রুপের লিংক
+# আপনার চ্যানেলের ইউজারনেম এবং গ্রুপের ইনভাইট লিংক
 CHANNEL_USERNAME = "@riyachatgroup70"
 GROUP_INVITE_LINK = "https://t.me/riyachatgroup70"
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-# ১. /start কমান্ড: চ্যানেল জয়েন ও ভেরিফিকেশন বাটন
+# ১. /start কমান্ড: ছবি বা ওয়েলকাম টেক্সট এবং ভেরিফিকেশন বাটন
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_chat.type != "private":
         keyboard = [[InlineKeyboardButton("➕ Add Me To Group 🥰", url=f"https://t.me/{context.bot.username}?startgroup=true")]]
@@ -63,7 +63,7 @@ async def welcome_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE)
         else:
             await update.message.reply_text(f"Hey there {member.first_name} 💖, and welcome to Riya Chat group! How are you?")
 
-# ৪. /help কমান্ড (মডারেশন মেনু)
+# ৪. /help কমান্ড (স্ক্রিনশটের মতো সাজানো মেনু)
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     help_text = (
         "🌸 **Riya Bot – Help**\n\n"
@@ -72,7 +72,12 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n"
         "/kick – Kisi ko group se nikalo\n"
         "/ban – Permanent ban karo\n"
-        "/purge – Reply se yahan tak delete\n"
+        "/purge – Reply se yahan tak delete\n\n"
+        "▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n"
+        "⚙️ **Group Settings & Protection**\n"
+        "▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n"
+        "• Antilink Active (Auto-delete links)\n"
+        "• Antiforward Active (Auto-delete forwards)"
     )
     await update.message.reply_text(help_text, parse_mode="Markdown")
 
@@ -86,7 +91,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # শুধুমাত্র গ্রুপ বা সুপারগ্রুপের জন্য চেক করবে
     if chat.type != "private":
         
-        # ক) ফরোয়ার্ড চেক (অন্য চ্যাট থেকে ফরোয়ার্ড করা মেসেজ, ভিডিও, ছবি)
+        # ক) ফরোয়ার্ড চেক (অন্য চ্যাট বা চ্যানেল থেকে ফরোয়ার্ড করা মেসেজ)
         is_forwarded = bool(update.message.forward_origin or update.message.forward_from or update.message.forward_from_chat)
         
         # খ) লিংক চেক
