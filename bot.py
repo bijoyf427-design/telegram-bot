@@ -7,7 +7,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("👥 Group Join Kanal", url="https://t.me/your_channel")]
+        [InlineKeyboardButton("👥 Group Join Kanal", url="https://t.me/+ytHGNfd1K6owZWZl")]
+
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
