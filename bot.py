@@ -16,7 +16,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 if __name__ == '__main__':
-    TOKEN = "901797213:AAFVcXK6wpOH9NaGWFvVa-XPzn-UxrFTBlc"
+        TOKEN = os.getenv("BOT_TOKEN")
+
     
     application = ApplicationBuilder().token(TOKEN).build()
     application.add_handler(CommandHandler('start', start))
